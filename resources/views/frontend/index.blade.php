@@ -142,7 +142,7 @@
                 </a>
             </div>
             <div class="col-6 col-sm-6 col-md-4">
-                <a href="" id="myLink3">
+                <a href="{{route('request.cleaning')}}" id="myLink3">
                     <div class="card text-center  d-flex align-items-stretch">
                         <div class="card-body">
                             <img src="{{asset('frontend/6.svg')}}" alt="" class="bg-warning icon-image">
@@ -198,17 +198,6 @@
             });
         });
 
-        document.getElementById("myLink3").addEventListener("click", function (event) {
-            event.preventDefault(); // Bu satır, linkin varsayılan tıklama davranışını engeller
-            Swal.fire({
-                title: "Sizler İçin Yeniliyoruz...",
-                icon: "info",
-                showCloseButton: true,
-                confirmButtonText: `
-     Tamam
-  `,
-            });
-        });
 
         document.getElementById("myLink4").addEventListener("click", function (event) {
             event.preventDefault(); // Bu satır, linkin varsayılan tıklama davranışını engeller

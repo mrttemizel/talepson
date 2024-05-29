@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\mailadresleri\MailAdresleriController;
 use App\Http\Controllers\backend\student\StudentController;
 use App\Http\Controllers\backend\user\UserController;
 use App\Http\Controllers\frontend\CarController;
+use App\Http\Controllers\frontend\CleaningController;
 use App\Http\Controllers\frontend\TechnicalController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,8 @@ Route::get('/technical-request', function (){ return view('frontend.technical-fo
 Route::post('/technical/store',[TechnicalController::class,'store'])->name('technical.store');
 
 
-
+Route::get('/cleaning-request', function (){ return view('frontend.cleaning-form'); })->name('request.cleaning');
+Route::post('/cleaning/store',[CleaningController::class,'store'])->name('cleaning.store');
 
 Route::get('/login',[AuthController::class,'login'])->name('auth.login');
 Route::post('/login-submit',[AuthController::class,'login_submit'])->name('auth.login-submit');

@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('technicals', function (Blueprint $table) {
+        Schema::create('cleanings', function (Blueprint $table) {
             $table->id();
             $table->string("basvuru_id");
             $table->string('talep_yapan_birim')->nullable();
             $table->string('talep_yapan_kisi')->nullable();
-            $table->string('email')->nullable();
             $table->string('cep_telefonu')->nullable();
+            $table->string('email')->nullable();
             $table->string('taleple_ilgili_yer')->nullable();
             $table->date('talep_tarihi')->nullable();
             $table->time('talep_saati')->nullable();
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('technicals');
+        Schema::dropIfExists('cleanings');
     }
 };
