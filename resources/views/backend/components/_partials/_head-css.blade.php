@@ -13,4 +13,4 @@
 <!-- Toaster Css-->
 <link href="{{asset('backend/assets/libs/toastify-js/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 
-@yield('css')
+@stack('css')

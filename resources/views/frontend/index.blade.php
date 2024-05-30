@@ -1,12 +1,9 @@
 @extends('backend.components.master-withoutnavbar')
-@section('title')
-    Ana Sayfa | Talep Sistemi
-@endsection
 
-@section('css')
+@push('title', 'Ana Sayfa')
 
+@push('css')
     <style>
-
         body {
             height: 100vh;
             display: flex;
@@ -92,7 +89,7 @@
 
     </style>
     <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css"/>
-@endsection
+@endpush
 
 @section('content')
     <div>
@@ -165,9 +162,6 @@
     </div>
 @endsection
 
-
-
-
 @section('addjs')
 
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -180,9 +174,7 @@
                 title: "Sizler İçin Yeniliyoruz...",
                 icon: "info",
                 showCloseButton: true,
-                confirmButtonText: `
-     Tamam
-  `,
+                confirmButtonText: 'Tamam',
             });
         });
 
@@ -192,9 +184,7 @@
                 title: "Sizler İçin Yeniliyoruz...",
                 icon: "info",
                 showCloseButton: true,
-                confirmButtonText: `
-     Tamam
-  `,
+                confirmButtonText: 'Tamam',
             });
         });
 
@@ -205,11 +195,8 @@
                 title: "Sizler İçin Yeniliyoruz...",
                 icon: "info",
                 showCloseButton: true,
-                confirmButtonText: `
-     Tamam
-  `,
+                confirmButtonText: 'Tamam',
             });
         });
-
     </script>
 @endsection
