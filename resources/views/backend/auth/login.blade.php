@@ -1,6 +1,6 @@
 @extends('backend.components.master-withoutnavbar')
 
-@section('title', 'Giriş Yap')
+@push('title', 'Giriş Yap')
 
 @section('content')
     <div class="auth-page-wrapper pt-5">

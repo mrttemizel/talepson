@@ -11,7 +11,6 @@ use App\Http\Controllers\Frontend\ITController;
 use App\Http\Controllers\Frontend\TechnicalController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', [HomeController::class, 'index'])->name('request.index');
 
 Route::prefix('cars')->group(function () {

@@ -20,4 +20,25 @@ class MailAdresleri extends Model
     const TYPE_CLEANING_REQUEST = 5;
 
     const TYPE_CENTRAL_TECHNICAL_REQUEST = 6;
+
+    const TYPE_INTERNET_TECHNOLOGY_REQUEST = 7;
+
+    public static array $titles = [
+        self::TYPE_CAR_REQUEST => 'ARAÇ TALEP FORMU',
+        self::TYPE_TECHNICAL_REQUEST => 'TEKNİK SERVİS TALEP FORMU',
+        self::TYPE_FOOD_REQUEST => 'YEMEK/İKRAM TALEP FORMU',
+        self::TYPE_MEETING_REQUEST => 'TOPLANTI-SALON TALEP FORMU',
+        self::TYPE_CLEANING_REQUEST => 'TEMİZLİK - EŞYA TAŞIMA - KARGO - KIRTASİYE TALEP FORMU',
+        self::TYPE_CENTRAL_TECHNICAL_REQUEST => 'DOWNTOWN TEKNİK SERVİS TALEP FORMU',
+        self::TYPE_INTERNET_TECHNOLOGY_REQUEST => 'BİLGİ İŞLEM TALEP FORMU'
+    ];
+
+    public static function getType($type): string
+    {
+        if (! isset(self::$titles[$type])) {
+            return 'Bilinmeyen';
+        }
+
+        return self::$titles[$type];
+    }
 }

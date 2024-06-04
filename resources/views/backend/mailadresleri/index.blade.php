@@ -62,6 +62,7 @@
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_MEETING_REQUEST }}">TOPLANTI-SALON TALEP FORMU</option>
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_CLEANING_REQUEST }}">TEMİZLİK - EŞYA TAŞIMA - KARGO - KIRTASİYE TALEP FORMU</option>
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_CENTRAL_TECHNICAL_REQUEST }}">DOWNTOWN TEKNİK SERVİS TALEP FORMU</option>
+                                        <option value="{{ \App\Models\MailAdresleri::TYPE_INTERNET_TECHNOLOGY_REQUEST }}">BİLGİ İŞLEM TALEP FORMU</option>
 
                                     </select>
                                     <span class="text-danger">
@@ -128,19 +129,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @php
-                                            $form_tanimi = [
-                                                     '1' => 'ARAÇ TALEP FORMU',
-                                                     '2' => 'TEKNİK SERVİS TALEP FORMU',
-                                                     '3' => 'YEMEK/İKRAM TALEP FORMU',
-                                                     '4' => 'TOPLANTI-SALON TALEP FORMU',
-                                                     '5' => 'TEMİZLİK - EŞYA TAŞIMA - KARGO - KIRTASİYE TALEP FORMU',
-                                                     '6' => 'DOWNTOWN TEKNİK SERVİS TALEP FORMU',
-                                                 ];
-                                         @endphp
                                         @foreach($data as $datas)
                                             <tr>
-                                                <td>{{ $form_tanimi[$datas->form_tanimi] }}</td>
+                                                <td>{{ \App\Models\MailAdresleri::getType($datas->form_tanimi) }}</td>
                                                 <td>{{$datas->mail}}</td>
                                                 <td>{{$datas->cc}}</td>
                                                 <td><a href="javascript:void(0)" data-url={{route('mail.delete', ['id'=>$datas->id]) }} data-id={{ $datas->id }} class="link-danger" id="delete_mail"><i class="ri-delete-bin-5-line"></i></a></td>

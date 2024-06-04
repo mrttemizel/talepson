@@ -1,6 +1,6 @@
 @extends('backend.components.master-withoutnavbar')
 
-@section('title', 'Temizlik Talep Formu')
+@push('title', 'Temizlik Talep Formu')
 
 @section('content')
     <div class="container mt-5">
