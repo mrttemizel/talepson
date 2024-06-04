@@ -3,11 +3,26 @@
 @push('title', 'Teknik Servis Talep Formu')
 
 @section('content')
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-12">
-                @include('frontend.partials.error_and_success')
-
+                @if (session()->get('success'))
+                    <div class="alert alert-success alert-dismissible alert-solid alert-label-icon fade show"
+                         role="alert">
+                        <i class="ri-check-double-line label-icon"></i><strong>  {{ session()->get('success') }}</strong></strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+                @endif
+                @if (session()->get('error'))
+                    <div class="alert alert-danger alert-dismissible alert-solid alert-label-icon fade show"
+                         role="alert">
+                        <i class="ri-check-double-line label-icon"></i><strong>  {{ session()->get('success') }}</strong></strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="card ">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">TEKNİK SERVİS TALEP FORMU</h4>
@@ -31,7 +46,7 @@
                             olmayan talepler dikkate alınmayacaktır.
                         </li>
                     </ul>
-                    <form action="{{route('frontend.request-technical.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('technical.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="live-preview">
@@ -43,11 +58,10 @@
                                             <input type="text" name="talep_yapan_birim" placeholder="Talep Yapan Birim"
                                                    class="form-control"
                                                    value="{{ old('talep_yapan_birim') }}">
-                                            <span class="text-danger">
-                                                @error('talep_yapan_birim')
-                                                    {{ $message }}
+                                            <span class="text-danger">@error('talep_yapan_birim')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -58,28 +72,26 @@
                                             <input type="text" name="talep_yapan_kisi"
                                                    placeholder="Talep Yapan Kişi" class="form-control"
                                                    value="{{ old('talep_yapan_kisi') }}">
-                                            <span class="text-danger">
-                                                @error('talep_yapan_kisi')
-                                                    {{ $message }}
+                                            <span class="text-danger">@error('talep_yapan_kisi')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
-
+                                    <!--end col-->
+                                    <!--end col-->
                                     <div class="col-xl-6 col-md-6">
                                         <div>
-                                            <label for="labelInput" class="form-label">
-                                                Telefon
-                                                <span class="text-danger">*</span>
-                                            </label>
+                                            <label for="labelInput" class="form-label">Telefon <span
+                                                    class="text-danger">*</span></label>
                                             <input type="text" name="telefon"
                                                    placeholder="Program Sorumlusu Telefon"
                                                    class="form-control" value="{{ old('telefon') }}">
                                             <span class="text-danger">
-                                                @error('telefon')
-                                                    {{ $message }}
+                                    @error('telefon')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -91,10 +103,10 @@
                                             <input type="text" name="email" placeholder="E-Posta Adresi"
                                                    class="form-control" value="{{ old('email') }}">
                                             <span class="text-danger">
-                                                @error('email')
-                                                    {{ $message }}
+                                    @error('email')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -105,11 +117,10 @@
                                             <input type="text" name="taleple_ilgili_yer" placeholder="Taleple İlgili Yer"
                                                    class="form-control"
                                                    value="{{ old('taleple_ilgili_yer') }}">
-                                            <span class="text-danger">
-                                                @error('taleple_ilgili_yer')
-                                                    {{ $message }}
+                                            <span class="text-danger">@error('taleple_ilgili_yer')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -121,10 +132,10 @@
                                             <input type="date" name="talep_tarihi"
                                                    class="form-control" value="{{ old('talep_tarihi') }}">
                                             <span class="text-danger">
-                                                @error('talep_tarihi')
-                                                    {{ $message }}
+                                    @error('talep_tarihi')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -135,13 +146,14 @@
                                             <input type="time" name="talep_saati"
                                                    class="form-control" value="{{ old('talep_saati') }}">
                                             <span class="text-danger">
-                                                @error('talep_saati')
-                                                    {{ $message }}
+                                    @error('talep_saati')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
                                     <!--end col-->
+
 
                                     <div class="col-xl-12 col-md-12">
                                         <div>
@@ -172,10 +184,10 @@
                                                 <label class="form-check-label" for="talepdiger">Diğer</label>
                                             </div>
                                             <span class="text-danger">
-                                                @error('talep_tipi')
-                                                    {{ $message }}
+                                    @error('talep_tipi')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -186,11 +198,9 @@
                                             <input type="text" name="talep_tipi_diger" placeholder="Diğer (Açıklayınız)"
                                                    class="form-control"
                                                    value="{{ old('talep_tipi_diger') }}">
-                                            <span class="text-danger">
-                                                @error('talep_tipi_diger')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span>
+                                            <span class="text-danger">@error('talep_tipi_diger')
+                                                {{ $message }}
+                                                @enderror</span>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -202,10 +212,10 @@
                                             <textarea class="form-control" name="aciklama" rows="3"
                                                       placeholder="Talep ile ilgili detayları lütfen buraya yazınız."></textarea>
                                             <span class="text-danger">
-                                                @error('aciklama')
-                                                    {{ $message }}
+                                    @error('aciklama')
+                                                {{ $message }}
                                                 @enderror
-                                            </span>
+                            </span>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -213,10 +223,10 @@
 
                                         <div id="recaptcha_form"></div>
                                         <span class="text-danger">
-                                            @error('g-recaptcha-response')
-                                                {{ $message }}
-                                            @enderror
-                                        </span>
+                                        @error('g-recaptcha-response')
+                                        {{ $message }}
+                                        @enderror
+
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
@@ -224,6 +234,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div><!-- end card body -->
@@ -231,50 +242,68 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
 
-@section('addjs')
-    <script>
-        $(document).on('click', '#submitButton', function () {
-            let timerInterval;
-            Swal.fire({
-                title: "Başvurunuz Alınıyor",
-                html: "Mail Gönderiliyor... <b></b> milliseconds.",
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    Swal.showLoading();
-                    const timer = Swal.getPopup().querySelector("b");
-                    timerInterval = setInterval(() => {
-                        timer.textContent = `${Swal.getTimerLeft()}`;
-                    }, 100);
-                },
-                willClose: () => {
-                    clearInterval(timerInterval);
+        @endsection
+
+
+
+
+        @section('addjs')
+
+            {!!  GoogleReCaptchaV2::render('recaptcha_form') !!}
+            <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+            <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
+
+            <!--datatable js-->
+            <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+
+
+            <script src="{{asset('backend/assets/js/pages/datatables.init.js')}}"></script>
+
+            <script>
+                $(document).on('click', '#submitButton', function () {
+                    let timerInterval;
+                    Swal.fire({
+                        title: "Başvurunuz Alınıyor",
+                        html: "Mail Gönderiliyor... <b></b> milliseconds.",
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading();
+                            const timer = Swal.getPopup().querySelector("b");
+                            timerInterval = setInterval(() => {
+                                timer.textContent = `${Swal.getTimerLeft()}`;
+                            }, 100);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                        }
+                    }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            console.log("I was closed by the timer");
+                        }
+                    });
+                });
+
+                $('.diger,.talepdiger').hide();
+
+                $('input').click(function(){
+                    if($('#talepdiger').is(':checked')) {
+                        $('.talepdiger').fadeIn();
+                    } else {
+                        $('.talepdiger').fadeOut();
+                    }
+                });
+
+                if($('#talepdiger').is(':checked')) {
+                    $('.talepdiger').fadeIn();
+                } else {
+                    $('.talepdiger').fadeOut();
                 }
-            }).then((result) => {
-                /* Read more about handling dismissals below */
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    console.log("I was closed by the timer");
-                }
-            });
-        });
+            </script>
 
-        $('.diger,.talepdiger').hide();
-
-        $('input').click(function(){
-            if($('#talepdiger').is(':checked')) {
-                $('.talepdiger').fadeIn();
-            } else {
-                $('.talepdiger').fadeOut();
-            }
-        });
-
-        if($('#talepdiger').is(':checked')) {
-            $('.talepdiger').fadeIn();
-        } else {
-            $('.talepdiger').fadeOut();
-        }
-    </script>
 @endsection

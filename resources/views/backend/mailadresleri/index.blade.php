@@ -1,10 +1,8 @@
 @extends('backend.components.master')
-@section('title')
-    Mail Listesi
-@endsection
-@section('css')
-    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css"/>
 
+@push('title', 'Mail Listesi')
+
+@push('css')
     <!--datatable css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"/>
     <!--datatable responsive css-->
@@ -12,7 +10,8 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
 
-@endsection
+@endpush
+
 @section('content')
     @component('backend.components.breadcrumb')
         @slot('li_1')
@@ -57,12 +56,12 @@
                                         class="text-danger">*</span>
                                     <select class="form-select" name="form_tanimi"  aria-label="Default select example">
                                         <option selected disabled>Form Adı / Tanımı Seçiniz</option>
-                                        <option value="1">ARAÇ TALEP FORMU</option>
-                                        <option value="2">TEKNİK SERVİS TALEP FORMU</option>
-                                        <option value="3">YEMEK/İKRAM TALEP FORMU</option>
-                                        <option value="4">TOPLANTI-SALON TALEP FORMU</option>
-                                        <option value="5">TEMİZLİK - EŞYA TAŞIMA - KARGO - KIRTASİYE TALEP FORMU</option>
-                                        <option value="6">DOWNTOWN TEKNİK SERVİS TALEP FORMU</option>
+                                        <option value="{{ \App\Models\MailAdresleri::TYPE_CAR_REQUEST }}">ARAÇ TALEP FORMU</option>
+                                        <option value="{{ \App\Models\MailAdresleri::TYPE_TECHNICAL_REQUEST }}">TEKNİK SERVİS TALEP FORMU</option>
+                                        <option value="{{ \App\Models\MailAdresleri::TYPE_FOOD_REQUEST }}">YEMEK/İKRAM TALEP FORMU</option>
+                                        <option value="{{ \App\Models\MailAdresleri::TYPE_MEETING_REQUEST }}">TOPLANTI-SALON TALEP FORMU</option>
+                                        <option value="{{ \App\Models\MailAdresleri::TYPE_CLEANING_REQUEST }}">TEMİZLİK - EŞYA TAŞIMA - KARGO - KIRTASİYE TALEP FORMU</option>
+                                        <option value="{{ \App\Models\MailAdresleri::TYPE_CENTRAL_TECHNICAL_REQUEST }}">DOWNTOWN TEKNİK SERVİS TALEP FORMU</option>
 
                                     </select>
                                     <span class="text-danger">
@@ -167,10 +166,6 @@
 @endsection
 
 @section('addjs')
-
-    <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
-
     <!--datatable js-->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>

@@ -12,34 +12,53 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    const ROLE_SUPER_ADMIN = 'super.admin';
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    const ROLE_ADMIN = 'admin';
+
+    const ROLE_EDITOR = 'editor';
+
+    const ROLE_USER = 'user';
+
+    protected $guarded = ['id'];
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function isSameRole($role): bool
+    {
+        return $this->role == $role;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->isSameRole(self::ROLE_SUPER_ADMIN) || $this->isSameRole(self::ROLE_ADMIN);
+    }
+
+    public function getRole(): string
+    {
+        switch ($this->role) {
+            case self::ROLE_SUPER_ADMIN:
+                return 'Süper Admin';
+            break;
+            case self::ROLE_ADMIN:
+                return 'Yönetici';
+            break;
+            case self::ROLE_EDITOR:
+                return 'Editör';
+            break;
+            case self::ROLE_USER:
+                return 'Kullanıcı';
+            break;
+            default:
+                return 'Bilinmeyen';
+        }
+    }
 }

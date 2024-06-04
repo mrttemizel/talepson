@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class adminStatus
+class AdminRoleMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,17 @@ class adminStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->status==1 || Auth::user()->status==2 )
-        {
+        if (! auth()->check()) {
+            abort(Response::HTTP_UNAUTHORIZED);
+        }
+
+        /** @var User $user */
+        $user = auth()->user();
+
+        if ($user->isSameRole(User::ROLE_SUPER_ADMIN) || $user->isSameRole(User::ROLE_ADMIN)) {
             return $next($request);
         }
-        abort(403);
+
+        abort(Response::HTTP_FORBIDDEN);
     }
 }

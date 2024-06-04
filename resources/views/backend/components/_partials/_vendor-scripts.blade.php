@@ -3,6 +3,7 @@
 
 <script src="{{asset('backend/assets/js/jquery-3.7.0.min.js')}}"></script>
 <script src="{{asset('backend/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{asset('backend/assets/libs/simplebar/simplebar.min.js')}}"></script>
 <script src="{{asset('backend/assets/libs/node-waves/waves.min.js')}}"></script>
 <script src="{{asset('backend/assets/libs/feather-icons/feather.min.js')}}"></script>
@@ -10,6 +11,9 @@
 <script src="{{asset('backend/assets/libs/toastify-js/toastr.min.js')}}"></script>
 <script src="{{asset('backend/assets/libs/toastify-js/toastify-js.js')}}"></script>
 <script src="{{asset('backend/assets/js/plugins.min.js')}}"></script>
+<script src="{{ asset('frontend/js/jquery.mask.min.js') }}"></script>
+<script src="{{ asset('frontend/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('frontend/js/bootstrap-datepicker.tr.min.js') }}"></script>
 
 <script src="{{asset('backend/assets/js/app.js')}}"></script>
 

@@ -1,11 +1,9 @@
 @extends('backend.components.master-withoutnavbar')
-@section('title')
-    Login
-@endsection
-@section('content')
 
+@section('title', 'Giriş Yap')
+
+@section('content')
     <div class="auth-page-wrapper pt-5">
-        <!-- auth page bg -->
         <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
             <div class="bg-overlay"></div>
 
@@ -17,20 +15,15 @@
             </div>
         </div>
 
-        <!-- auth page content -->
         <div class="auth-page-content">
             <div class="container">
                 <div class="row mt-5">
-                    <div class="col-lg-12 mt-5">
-
-                    </div>
+                    <div class="col-lg-12 mt-5"></div>
                 </div>
-                <!-- end row -->
 
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
                         <div class="card mt-5">
-
                             <div class="card-body p-4 mt-2">
                                 <div class="text-center mt-2">
                                     <img src="{{ asset('backend/my-image/abu-renkli.svg') }}" alt="" height="60">
@@ -39,8 +32,8 @@
                                 @if (session()->get('error'))
                                     <div class="alert alert-danger alert-border-left alert-dismissible fade show"
                                          role="alert">
-                                        <i class="ri-error-warning-line me-3 align-middle"></i> <strong>
-                                            {{ session()->get('error') }}</strong>
+                                        <i class="ri-error-warning-line me-3 align-middle"></i>
+                                        <strong>{{ session()->get('error') }}</strong>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                                 aria-label="Close"></button>
                                     </div>
@@ -50,8 +43,8 @@
                                     <div
                                         class="alert alert-success alert-dismissible alert-solid alert-label-icon fade show"
                                         role="alert">
-                                        <i class="ri-check-double-line label-icon"></i><strong>
-                                            {{ session()->get('success') }}</strong></strong>
+                                        <i class="ri-check-double-line label-icon"></i>
+                                        <strong>{{ session()->get('success') }}</strong>
                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
                                                 aria-label="Close"></button>
                                     </div>
@@ -91,54 +84,37 @@
                                                     @enderror
                                                 </span>
                                             </div>
-
                                         </div>
 
                                         <div class="mb-3">
-
-                                        <div id="recaptcha_form"></div>
+                                            <div id="recaptcha_form"></div>
                                             <span class="text-danger">
-                                                    @error('g-recaptcha-response')
-                                                {{ $message }}
-                                                    @enderror
-
+                                                @error('g-recaptcha-response')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
                                         </div>
-
 
                                         <div class="mt-4">
                                             <button class="btn btn-info w-100"  id="login_button" type="submit">Giriş Yap</button>
                                         </div>
-
                                     </form>
-
+                                </div>
                             </div>
-                            <!-- end card body -->
                         </div>
-                        <!-- end card -->
-
                     </div>
                 </div>
-                <!-- end row -->
             </div>
-            <!-- end container -->
         </div>
-        <!-- end auth page content -->
-
-
     </div>
-    <!-- end auth-page-wrapper -->
-
 @endsection
 
-        @section('addjs')
-
-
-            <script>
-                $(document).on('click', '#login_button', function () {
-                    $('#login_button').html('Giriş Yapılıyor...');
-                    $('#login_button').addClass("disabled");
-                });
-            </script>
+@section('addjs')
+    <script>
+        $(document).on('click', '#login_button', function () {
+            $('#login_button').html('Giriş Yapılıyor...');
+            $('#login_button').addClass("disabled");
+        });
+    </script>
     {!!  GoogleReCaptchaV2::render('recaptcha_form') !!}
-
 @endsection

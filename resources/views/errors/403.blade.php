@@ -1,12 +1,9 @@
 @extends('backend.components.master-withoutnavbar')
-@section('title')
-    404 PAGE
-@endsection
+
+@push('title', '404 PAGE')
+
 @section('content')
-
-
     <div class="auth-page-wrapper pt-5">
-        <!-- auth page bg -->
         <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
             <div class="bg-overlay"></div>
 
@@ -17,7 +14,6 @@
             </div>
         </div>
 
-        <!-- auth page content -->
         <div class="auth-page-content">
             <div class="container mt-5">
                 <div class="row">
@@ -27,21 +23,14 @@
                             </div>
                             <div>
                                 <img src="{{ asset('backend/my-image/abu-beyaz.svg') }}" alt="" class="error-basic-img move-animation">
-
                                 <h3 class="text-uppercase text-white">Bu Sayfaya Erişim Yetkiniz Bulunmamaktadır! 😭</h3>
-
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- end row -->
-
             </div>
-            <!-- end container -->
         </div>
-        <!-- end auth page content -->
 
-        <!-- footer -->
         <footer class="footer">
             <div class="container">
                 <div class="row">
@@ -55,9 +44,5 @@
                 </div>
             </div>
         </footer>
-        <!-- end Footer -->
-
     </div>
-
 @endsection
-

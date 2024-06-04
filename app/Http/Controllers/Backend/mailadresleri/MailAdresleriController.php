@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\backend\mailadresleri;
+namespace App\Http\Controllers\Backend\mailadresleri;
 
 use App\Http\Controllers\Controller;
 use App\Models\MailAdresleri;

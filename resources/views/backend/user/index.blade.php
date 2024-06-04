@@ -1,18 +1,16 @@
 @extends('backend.components.master')
-@section('title')
-    Kullanıcı Listesi
-@endsection
-@section('css')
-    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 
+@push('title', 'Kullanıcı Listesi')
+
+@push('css')
     <!--datatable css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
     <!--datatable responsive css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+@endpush
 
-@endsection
 @section('content')
     @component('backend.components.breadcrumb')
         @slot('li_1')
@@ -72,15 +70,7 @@
                                             <td>{{$datas->name}}</td>
                                             <td>{{$datas->email}}</td>
                                             <td>{{$datas->phone}}</td>
-                                            @if ($datas->status == 2 )
-                                                <td><h6 class="text-success fs-13 mb-0">Süper Admin</h6></td>
-                                            @elseif($datas->status == 1 )
-                                                <td><h6 class="text-success fs-13 mb-0">Yönetici</h6></td>
-                                            @elseif($datas->status == 3 )
-                                                <td><h6 class="text-danger fs-13 mb-0">Başvuru Yapan Kişi</h6></td>
-                                            @else
-                                                <td><h6 class="text-info fs-13 mb-0">Kullanıcı</h6></td>
-                                            @endif
+                                            <td><h6 class="text-info fs-13 mb-0">{{ $datas->getRole() }}</h6></td>
                                             <td>
                                                 <div class="hstack gap-3 fs-15">
                                                     <a href="{{route('users.edit', ['id' => $datas->id])}}" class="link-primary"><i class="ri-settings-4-line"></i></a>
@@ -101,11 +91,6 @@
 @endsection
 
 @section('addjs')
-
-
-    <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
-
     <!--datatable js-->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>

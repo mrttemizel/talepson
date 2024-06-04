@@ -1,19 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\frontend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RequestFormBlade;
 use App\Models\Car;
 use App\Models\MailAdresleri;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 use TimeHunter\LaravelGoogleReCaptchaV2\Validations\GoogleReCaptchaV2ValidationRule;
 
 class CarController extends Controller
 {
-    public function store(Request $request)
+    public function index(): View
+    {
+        return view('frontend.car-form');
+    }
+    public function store(Request $request): RedirectResponse
     {
         $notification = array(
             'message' => 'Başvuru İşlemi Başarılı',

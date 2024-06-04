@@ -1,10 +1,7 @@
 @extends('backend.components.master')
-@section('title')
-    Kullanıcılar
-@endsection
-@section('css')
-    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
-@endsection
+
+@push('title', 'Profilim')
+
 @section('content')
     @component('backend.components.breadcrumb')
         @slot('li_1')
@@ -14,8 +11,6 @@
             Profil
         @endslot
     @endcomponent
-
-
 
         <div class="row mt-5" >
             <div class="col-xxl-3">
@@ -37,15 +32,9 @@
                                 </div>
                             </div>
                             <h5 class="fs-16 mb-1">{{ Auth::user()->name }}</h5>
-                            <p class="text-muted mb-0">       @if (Auth::user()->status == 1 )
-                                    Yönetici
-                                @elseif(Auth::user()->status == 2 )
-                                    Super Admin
-                                @elseif(Auth::user()->status == 0 )
-                                    Editör
-                                @else
-                                    User
-                                @endif</p>
+                            <p class="text-muted mb-0">
+                                {{ auth()->user()->getRole() }}
+                            </p>
                         </div>
                     </div>
                         <div class="hstack gap-2 justify-content-center mb-2">
@@ -193,9 +182,6 @@
 
 
 @section('addjs')
-
-    <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages/profile-setting.init.js') }}"></script>
 
     <script src="{{asset('backend/assets/libs/cleave.js/addons/cleave-phone.ve.js')}}"></script>

@@ -1,10 +1,7 @@
 @extends('backend.components.master')
-@section('title')
-    Kullanıcı Ekle
-@endsection
-@section('css')
-    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
-@endsection
+
+@push('title', 'Kullanıcı Ekle')
+
 @section('content')
     @component('backend.components.breadcrumb')
         @slot('li_1')
@@ -122,8 +119,8 @@
                                         <label for="labelInput" class="form-label">Kullanıcı Rolü <span class="text-danger">*</span></label>
                                         <select class="form-select" name="status"  aria-label="Default select example">
                                             <option selected disabled>Kullanıcı Rolü Seçiniz</option>
-                                                <option value="1">Yönetici</option>
-                                                <option value="0">Kullanıcı</option>
+                                                <option value="{{ \App\Models\User::ROLE_ADMIN }}">Yönetici</option>
+                                                <option value="{{ \App\Models\User::ROLE_USER }}">Kullanıcı</option>
                                         </select>
                                         <span class="text-danger">
                                     @error('status')

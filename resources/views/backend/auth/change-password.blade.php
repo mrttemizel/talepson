@@ -1,10 +1,9 @@
 @extends('backend.components.master-withoutnavbar')
-@section('title')
-    Change Password
-@endsection
+
+@section('title', 'Şifre Sıfırlama')
+
 @section('content')
     <div class="auth-page-wrapper pt-5">
-        <!-- auth page bg -->
         <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
             <div class="bg-overlay"></div>
 
@@ -16,20 +15,15 @@
             </div>
         </div>
 
-        <!-- auth page content -->
         <div class="auth-page-content">
             <div class="container">
                 <div class="row mt-5">
-                    <div class="col-lg-12 mt-5">
-
-                    </div>
+                    <div class="col-lg-12 mt-5"></div>
                 </div>
-                <!-- end row -->
 
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
                         <div class="card mt-4">
-
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
                                     <img src="{{ asset('backend/my-image/abu-renkli.svg') }}" alt="" height="60">
@@ -70,39 +64,28 @@
                                                 <input type="password" name="password_confirmation" class="form-control pe-5 password-input" onpaste="return false" placeholder="Şifreyi Onayla">
                                             </div>
                                             <span class="text-danger">
-                                            @error('password_confirmation')
-                                                {{ $message }}
+                                                @error('password_confirmation')
+                                                    {{ $message }}
                                                 @enderror
-                                    </span>
+                                            </span>
                                         </div>
-
 
                                         <div class="mt-4">
                                             <button class="btn btn-success w-100" type="submit">Şifremi Sıfırla</button>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
-                            <!-- end card body -->
                         </div>
-                        <!-- end card -->
 
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Bekle, şifremi hatırlıyorum.... <a href="auth-signin-basic"
-                                                                               class="fw-semibold text-primary text-decoration-underline"> Giriş Yap </a> </p>
+                            <p class="mb-0">Bekle, şifremi hatırlıyorum....
+                                <a href="{{ route('auth.login') }}" class="fw-semibold text-primary text-decoration-underline"> Giriş Yap</a>
+                            </p>
                         </div>
-
-
                     </div>
                 </div>
-                <!-- end row -->
             </div>
-            <!-- end container -->
         </div>
-        <!-- end auth page content -->
-
-
     </div>
-    <!-- end auth-page-wrapper -->
 @endsection

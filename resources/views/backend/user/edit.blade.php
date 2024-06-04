@@ -1,10 +1,7 @@
 @extends('backend.components.master')
-@section('title')
-    Kullanıcı Düzenle
-@endsection
-@section('css')
-    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
-@endsection
+
+@push('title', 'Kullanıcı Düzenle')
+
 @section('content')
     @component('backend.components.breadcrumb')
         @slot('li_1')
@@ -121,14 +118,14 @@
                                                 </span>
                                         </div>
                                     </div>
-                                    @if($data->status == 1 || $data->status == 0 )
+                                    @if(auth()->user()->isAdmin())
                                         <div class="col-xl-12 col-md-12">
                                             <div>
                                                 <label for="labelInput" class="form-label">Kullanıcı Rolü <span class="text-danger">*</span></label>
                                                 <select class="form-select" name="status"  aria-label="Default select example">
-                                                    <option value="1" {{ $data->status == 1 ? 'selected' : '' }}>
+                                                    <option value="{{ \App\Models\User::ROLE_ADMIN }}" {{ $data->isSameRole(\App\Models\User::ROLE_ADMIN) ? 'selected' : '' }}>
                                                         Yönetici</option>
-                                                    <option value="0"{{ $data->status == 0 ? 'selected' : '' }}>
+                                                    <option value="{{ \App\Models\User::ROLE_USER }}"{{ $data->isSameRole(\App\Models\User::ROLE_USER) ? 'selected' : '' }}>
                                                         Kullanıcı</option>
                                                 </select>
                                                 <span class="text-danger">

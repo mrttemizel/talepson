@@ -1,10 +1,9 @@
 @extends('backend.components.master-withoutnavbar')
-@section('title')
-    Reset Password
-@endsection
+
+@push('title', 'Şifre Sıfırla')
+
 @section('content')
     <div class="auth-page-wrapper pt-5">
-        <!-- auth page bg -->
         <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
             <div class="bg-overlay"></div>
 
@@ -16,15 +15,11 @@
             </div>
         </div>
 
-        <!-- auth page content -->
         <div class="auth-page-content">
             <div class="container">
                 <div class="row mt-5">
-                    <div class="col-lg-12 mt-5">
-
-                    </div>
+                    <div class="col-lg-12 mt-5"></div>
                 </div>
-                <!-- end row -->
 
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
@@ -35,11 +30,9 @@
                                     <img src="{{ asset('backend/my-image/abu-renkli.svg') }}" alt="" height="60">
                                     <h5 class="text-primary mt-4">Şifre Sıfırlama E-postası Gönder</h5>
 
-
                                     <lord-icon src="https://cdn.lordicon.com/rhvddzym.json" trigger="loop"
                                                colors="primary:#0ab39c" class="avatar-xl">
                                     </lord-icon>
-
                                 </div>
 
                                 <div class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
@@ -81,30 +74,25 @@
                                             <button class="btn btn-success w-100" id="reset_button" type="submit">Sıfırlama Linki
                                                 Gönder</button>
                                         </div>
-                                    </form><!-- end form -->
+                                    </form>
                                 </div>
                             </div>
-                            <!-- end card body -->
                         </div>
-                        <!-- end card -->
 
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Bekle, şifremi hatırlıyorum.... <a href="{{ route('auth.login') }}"
-                                                                               class="fw-semibold text-primary text-decoration-underline"> Giriş Yap </a> </p>
+                            <p class="mb-0">
+                                Bekle, şifremi hatırlıyorum....
+                                <a href="{{ route('auth.login') }}" class="fw-semibold text-primary text-decoration-underline"> Giriş Yap </a>
+                            </p>
                         </div>
 
                     </div>
                 </div>
-                <!-- end row -->
             </div>
-            <!-- end container -->
         </div>
-        <!-- end auth page content -->
-
-
     </div>
-    <!-- end auth-page-wrapper -->
 @endsection
+
 @section('addjs')
     <script>
         $(document).on('click', '#reset_button', function () {

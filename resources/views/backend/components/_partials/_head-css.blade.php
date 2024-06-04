@@ -1,6 +1,3 @@
-
-<!-- Layout config Js -->
-<script src="{{asset('backend/assets/js/layout.js')}}"></script>
 <!-- Bootstrap Css -->
 <link href="{{asset('backend/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- Icons Css -->
@@ -12,5 +9,9 @@
 <link href="{{asset('backend/assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- Toaster Css-->
 <link href="{{asset('backend/assets/libs/toastify-js/toastr.min.css')}}" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-datepicker.min.css') }}" />
+
+<link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 
 @stack('css')
