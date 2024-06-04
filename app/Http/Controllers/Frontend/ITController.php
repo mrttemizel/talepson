@@ -10,6 +10,7 @@ use App\Models\MailAdresleri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use TimeHunter\LaravelGoogleReCaptchaV2\Validations\GoogleReCaptchaV2ValidationRule;
 
 class ITController extends Controller
 {
@@ -25,7 +26,9 @@ class ITController extends Controller
             'talep_yapan_kisi' => ['required'],
             'email' => ['required', 'email'],
             'cep_telefonu' => ['required'],
-            'aciklama' => ['required']
+            'aciklama' => ['required'],
+            'g-recaptcha-response' => [new GoogleReCaptchaV2ValidationRule()]
+
         ]);
 
         $emails = MailAdresleri::query()->where('form_tanimi', '=', MailAdresleri::TYPE_INTERNET_TECHNOLOGY_REQUEST)->get();

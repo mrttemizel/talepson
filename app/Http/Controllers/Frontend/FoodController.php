@@ -11,6 +11,7 @@ use App\Models\MailAdresleri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use TimeHunter\LaravelGoogleReCaptchaV2\Validations\GoogleReCaptchaV2ValidationRule;
 
 class FoodController extends Controller
 {
@@ -156,7 +157,9 @@ class FoodController extends Controller
             'yurt.*' => ['nullable', 'string', 'max:255'],
             'grup_tanimi' => ['required'],
             'odeme_tipi' => ['required'],
-            'aciklama' => ['nullable', 'string']
+            'aciklama' => ['nullable', 'string'],
+            'g-recaptcha-response' => [new GoogleReCaptchaV2ValidationRule()]
+
         ]);
 
         $emails = MailAdresleri::query()

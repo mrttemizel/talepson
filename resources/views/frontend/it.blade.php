@@ -100,10 +100,27 @@
                                             </span>
                                         </div>
                                     </div>
+                                    <div class="mb-3">
 
+                                        <div id="recaptcha_form_register"></div>
+                                        <span class="text-danger">
+                                        @error('g-recaptcha-response')
+                                        {{ $message }}
+                                        @enderror
+
+                                    </div>
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
-                                            <button type="submit" class="btn btn-primary" id="submitButton">Gönder</button>
+                                            <button type="submit" class="btn btn-primary btn-load btn-request-loading">
+                                                <span class="d-flex align-items-center">
+                                                    <span class="flex-grow-1 submit-text">
+                                                        Gönder
+                                                    </span>
+                                                    <span class="spinner-border flex-shrink-0 d-none" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </span>
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -118,30 +135,7 @@
 @endsection
 
 @section('addjs')
-    <script>
-        $(document).on('click', '#submitButton', function () {
-            let timerInterval;
-            Swal.fire({
-                title: "Başvurunuz Alınıyor",
-                html: "Mail Gönderiliyor... <b></b> milliseconds.",
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    Swal.showLoading();
-                    const timer = Swal.getPopup().querySelector("b");
-                    timerInterval = setInterval(() => {
-                        timer.textContent = `${Swal.getTimerLeft()}`;
-                    }, 100);
-                },
-                willClose: () => {
-                    clearInterval(timerInterval);
-                }
-            }).then((result) => {
-                /* Read more about handling dismissals below */
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    console.log("I was closed by the timer");
-                }
-            });
-        });
-    </script>
+
+    {!!  GoogleReCaptchaV2::render('recaptcha_form_register') !!}
+
 @endsection

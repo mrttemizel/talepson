@@ -48,4 +48,14 @@
     @endif
 
 </script>
+
+<script>
+    $(document).on('click', '.btn-request-loading', function () {
+        let btn = $(this);
+
+        btn.find('.submit-text').addClass('me-2').text('Gönderiliyor');
+        btn.find('[role="status"]').removeClass('d-none');
+        btn.addClass('disabled');
+    });
+</script>
 @yield('addjs')

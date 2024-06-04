@@ -28,7 +28,7 @@
     </tbody>
 </table>
 <p>
-    Bu E-posta Araç Talep Formu Tarafından Gönderilmiştir.
+    {{ $title }} Formu Tarafından Gönderilmiştir.
 </p>
 </body>
 </html>

@@ -59,7 +59,6 @@
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_CAR_REQUEST }}">ARAÇ TALEP FORMU</option>
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_TECHNICAL_REQUEST }}">TEKNİK SERVİS TALEP FORMU</option>
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_FOOD_REQUEST }}">YEMEK/İKRAM TALEP FORMU</option>
-                                        <option value="{{ \App\Models\MailAdresleri::TYPE_MEETING_REQUEST }}">TOPLANTI-SALON TALEP FORMU</option>
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_CLEANING_REQUEST }}">TEMİZLİK - EŞYA TAŞIMA - KARGO - KIRTASİYE TALEP FORMU</option>
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_CENTRAL_TECHNICAL_REQUEST }}">DOWNTOWN TEKNİK SERVİS TALEP FORMU</option>
                                         <option value="{{ \App\Models\MailAdresleri::TYPE_INTERNET_TECHNOLOGY_REQUEST }}">BİLGİ İŞLEM TALEP FORMU</option>
