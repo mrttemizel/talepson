@@ -134,7 +134,7 @@
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-4">
-                        <a href="" id="myLink4">
+                        <a href="{{route('frontend.request-downtown.index')}}" id="myLink4">
                             <div class="card text-center d-flex align-items-stretch">
                                 <div class="card-body">
                                     <img src="{{asset('frontend/5.svg')}}" alt="" class="bg-danger icon-image">
@@ -149,16 +149,4 @@
     </div>
 @endsection
 
-@section('addjs')
-    <script>
-        document.getElementById("myLink4").addEventListener("click", function (event) {
-            event.preventDefault(); // Bu satır, linkin varsayılan tıklama davranışını engeller
-            Swal.fire({
-                title: "Sizler İçin Yeniliyoruz...",
-                icon: "info",
-                showCloseButton: true,
-                confirmButtonText: 'Tamam',
-            });
-        });
-    </script>
-@endsection
+

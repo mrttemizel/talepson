@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\mailadresleri\MailAdresleriController;
 use App\Http\Controllers\Backend\user\UserController;
 use App\Http\Controllers\Frontend\CarController;
 use App\Http\Controllers\Frontend\CleaningController;
+use App\Http\Controllers\frontend\DowntownController;
 use App\Http\Controllers\Frontend\FoodController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ITController;
@@ -38,6 +39,11 @@ Route::prefix('cleaning')->group(function () {
     Route::post('/request',[CleaningController::class,'store'])->name('frontend.request-cleaning.store');
 });
 
+
+Route::prefix('downtown')->group(function () {
+    Route::get('/request', [DowntownController::class, 'index'])->name('frontend.request-downtown.index');
+    Route::post('/request',[DowntownController::class,'store'])->name('frontend.request-downtown.store');
+});
 
 Route::get('/login',[AuthController::class,'login'])->name('auth.login');
 Route::post('/login',[AuthController::class,'login_submit'])->name('auth.login-submit');
