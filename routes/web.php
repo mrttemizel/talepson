@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Auth\AuthController;
-use App\Http\Controllers\Backend\mailadresleri\MailAdresleriController;
+use App\Http\Controllers\Backend\MailAddresses\MailAddressController;
 use App\Http\Controllers\Backend\user\UserController;
 use App\Http\Controllers\Frontend\CarController;
 use App\Http\Controllers\Frontend\CleaningController;
@@ -76,9 +76,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::prefix('mail')->group(function () {
-            Route::get('/index',[MailAdresleriController::class,'index'])->name('mail.index');
-            Route::post('/store',[MailAdresleriController::class,'store'])->name('mail.store');
-            Route::get('/delete/{id}',[MailAdresleriController::class,'delete'])->name('mail.delete');
+            Route::get('/index',[MailAddressController::class,'index'])->name('mail.index');
+            Route::post('/store',[MailAddressController::class,'store'])->name('mail.store');
+            Route::get('/delete/{id}',[MailAddressController::class,'delete'])->name('mail.delete');
         });
     });
 });

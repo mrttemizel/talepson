@@ -57,7 +57,7 @@
                                         <div class="mb-3">
                                             <label for="email" class="form-label">E-Posta Adresi :</label>
                                             <input type="email" name="email" value="{{ old('email') }}"
-                                                   class="form-control" placeholder="E-posta Adresiniz">
+                                                   class="form-control" placeholder="E-posta Adresiniz" autofocus>
                                             <span class="text-danger">
                                                 @error('email')
                                                 {{ $message }}

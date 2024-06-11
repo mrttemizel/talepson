@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\ReceivedRequestMail;
 use App\Mail\RequestFormBlade;
 use App\Models\IT;
-use App\Models\MailAdresleri;
+use App\Models\MailAddress;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -31,16 +32,18 @@ class ITController extends Controller
 
         ]);
 
-        $emails = MailAdresleri::query()->where('form_tanimi', '=', MailAdresleri::TYPE_INTERNET_TECHNOLOGY_REQUEST)->get();
+        $emails = MailAddress::query()->where('form_type', '=', MailAddress::TYPE_INTERNET_TECHNOLOGY_REQUEST)->get();
 
         if ($emails->isEmpty()) {
-            return redirect()->route('request.index')->with([
-                'message' => 'Gönderilecek Mail Adresi Bulunamadı',
+            return back()->with('error', [
+                'message' => 'Kayıtlı bir mail adresi bulunamadı!',
                 'alert-type' => 'error'
             ]);
         }
 
         IT::query()->create([
+            'basvuru_id' => IdGenerator::generate(['table' => 'i_t_s', 'field' => 'basvuru_id', 'length' => 10, 'prefix' => 'BSV-IT-']),
+
             'talebi_yapan_birim' => $request->input('talebi_yapan_birim'),
             'talebi_yapan_kisi' => $request->input('talebi_yapan_kisi'),
             'email' => $request->input('email'),
@@ -48,9 +51,7 @@ class ITController extends Controller
             'aciklama' => $request->input('aciklama')
         ]);
 
-        Mail::to($request->input('email'))->queue(new ReceivedRequestMail());
-
-        Mail::to($emails->pluck('mail')->toArray())->cc($emails->pluck('cc')->toArray())->queue(new RequestFormBlade([
+        $mail = [
             'title' => 'Bilgi İşlem Talep',
             'tableData' => [
                 [ 'key' => 'Talep Yapan Birim', 'value' => $request->input('talep_yapan_birim') ],
@@ -59,7 +60,18 @@ class ITController extends Controller
                 [ 'key' => 'Cep Telefonu', 'value' => $request->input('cep_telefonu') ],
                 [ 'key' => 'Açıklama', 'value' => $request->input('aciklama') ]
             ]
-        ]));
+        ];
+
+        Mail::to($request->input('email'))->queue(new ReceivedRequestMail());
+
+        $sendEmails = $emails->filter(function ($email) {
+            return $email->mail_type == MailAddress::MAIL_TYPE_SEND;
+        })->pluck('email')->toArray();
+        $sendCC = $emails->filter(function ($email) {
+            return $email->mail_type == MailAddress::MAIL_TYPE_CC;
+        })->pluck('email')->toArray();
+
+        Mail::to($sendEmails)->cc($sendCC)->send(new RequestFormBlade($mail));
 
         return redirect()->route('request.index')->with([
             'message' => 'Talebiniz Alınmıştır',

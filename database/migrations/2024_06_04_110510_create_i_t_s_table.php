@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('i_t_s', function (Blueprint $table) {
             $table->id();
+            $table->string('basvuru_id')->unique()->index();
             $table->string('talebi_yapan_birim')->nullable();
             $table->string('talebi_yapan_kisi')->nullable();
             $table->string('email')->nullable();

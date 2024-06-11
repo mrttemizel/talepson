@@ -1,6 +1,6 @@
 @extends('backend.components.master-withoutnavbar')
 
-@push('title', 'IT Talep Formu')
+@push('title', 'Bilgi İşlem Talep Formu')
 
 @section('content')
     <div class="container mt-5">
@@ -10,7 +10,7 @@
 
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">IT TALEP FORMU</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">BİLGİ İŞLEM TALEP FORMU</h4>
                         <a href="{{ route('request.index') }}"
                            class="btn btn-primary waves-effect waves-light d-flex justify-content-between">
                             <i class="ri-arrow-go-back-fill"></i> &nbsp; Geri Dön

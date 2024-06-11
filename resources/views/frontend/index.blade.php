@@ -116,7 +116,7 @@
                             <div class="card text-center d-flex align-items-stretch">
                                 <div class="card-body">
                                     <img src="{{asset('frontend/4.svg')}}" alt="" class="bg-info icon-image">
-                                    <p class="text">Bilgi İşlem Talep</p>
+                                    <p class="text">BİLGİ İŞLEM TALEP</p>
                                 </div>
                             </div>
                         </a>

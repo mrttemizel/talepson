@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mail_adresleris', function (Blueprint $table) {
+        Schema::create('mail_addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('form_tanimi');
-            $table->string('mail');
-            $table->string('cc');
+            $table->string('mail_type')->index();
+            $table->string('form_type')->index();
+            $table->string('email');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mail_adresleris');
+        Schema::dropIfExists('mail_addresses');
     }
 };

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('food', function (Blueprint $table) {
             $table->id();
+            $table->string('basvuru_id')->unique()->index();
             $table->string('program_adi')->nullable();
 
             $table->string('talep_yapan_birim')->nullable();

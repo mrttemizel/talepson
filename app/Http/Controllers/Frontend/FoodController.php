@@ -7,7 +7,8 @@ use App\Mail\ReceivedRequestMail;
 use App\Mail\RequestFoodMail;
 use App\Mail\RequestFormBlade;
 use App\Models\Food;
-use App\Models\MailAdresleri;
+use App\Models\MailAddress;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -162,17 +163,6 @@ class FoodController extends Controller
 
         ]);
 
-        $emails = MailAdresleri::query()
-            ->where('form_tanimi', '=', MailAdresleri::TYPE_FOOD_REQUEST)
-            ->get();
-
-        if ($emails->isEmpty()) {
-            return redirect()->back()->with([
-                'message' => 'Gönderilecek herhangi bir mail adresi bulunamadı.',
-                'alert-type' => 'error'
-            ]);
-        }
-
         $ikram = $request->input('ikram');
         $yemek = $request->input('yemek');
         $yer = $request->input('yer');
@@ -180,7 +170,18 @@ class FoodController extends Controller
         $talepTipi = $request->input('talep_tipi');
         $grup = $request->input('grup_tanimi');
 
+        $emails = MailAddress::query()->where('form_type', '=', MailAddress::TYPE_FOOD_REQUEST)->get();
+
+        if ($emails->isEmpty()) {
+            return back()->with('error', [
+                'message' => 'Kayıtlı bir mail adresi bulunamadı!',
+                'alert-type' => 'error'
+            ]);
+        }
+
         Food::query()->create([
+            'basvuru_id' => IdGenerator::generate(['table' => 'food', 'field' => 'basvuru_id', 'length' => 10, 'prefix' => 'BSV-FOOD-']),
+
             'program_adi' => $request->input('program_adi'),
 
             'talep_yapan_birim' => $request->input('talep_yapan_birim'),
@@ -301,15 +302,19 @@ class FoodController extends Controller
             [ 'key' => 'Ödeme Tipi', 'value' => $this->paymentTypes[$request->input('odeme_tipi')]['name'] ?? '' ],
             [ 'key' => 'Açıklama', 'value' => $request->input('aciklama') ]
         ]);
+        $mail = [
+            'title' => 'İkram & Kahvaltı Talebi',
+            'tableData' => $mailData->toArray()
+        ];
 
-        Mail::to($request->input('email'))->queue(new ReceivedRequestMail());
+        $sendEmails = $emails->filter(function ($email) {
+            return $email->mail_type == MailAddress::MAIL_TYPE_SEND;
+        })->pluck('email')->toArray();
+        $sendCC = $emails->filter(function ($email) {
+            return $email->mail_type == MailAddress::MAIL_TYPE_CC;
+        })->pluck('email')->toArray();
 
-        Mail::to($emails->pluck('mail')->toArray())
-            ->cc($emails->pluck('cc')->toArray())
-            ->queue(new RequestFormBlade([
-                'title' => 'İkram & Kahvaltı Talebi',
-                'tableData' => $mailData->toArray()
-            ]));
+        Mail::to($sendEmails)->cc($sendCC)->send(new RequestFormBlade($mail));
 
         return redirect()->route('request.index')->with([
             'message' => 'Yemek & Kahvaltı talebiniz alınmıştır.',

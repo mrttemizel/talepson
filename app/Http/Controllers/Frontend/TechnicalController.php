@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RequestFormBlade;
-use App\Models\MailAdresleri;
+use App\Models\MailAddress;
 use App\Models\Technical;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\RedirectResponse;
@@ -22,16 +22,6 @@ class TechnicalController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $notification = array(
-            'message' => 'Başvuru İşlemi Başarılı',
-            'alert-type' => 'success'
-        );
-
-        $notification_error = array(
-            'message' => 'Gönderilecek Mail Adresi Bulunamadı',
-            'alert-type' => 'error'
-        );
-
         $request->validate([
             'talep_yapan_birim' => 'required',
             'talep_yapan_kisi' => 'required',
@@ -46,6 +36,19 @@ class TechnicalController extends Controller
             'g-recaptcha-response' => [new GoogleReCaptchaV2ValidationRule()]
         ]);
 
+        $emails = MailAddress::query()->where('form_type', '=', MailAddress::TYPE_CAR_REQUEST)->get();
+
+        if ($emails->isEmpty()) {
+            return back()->with('error', [
+                'message' => 'Kayıtlı bir mail adresi bulunamadı!',
+                'alert-type' => 'error'
+            ]);
+        }
+
+        $notification = array(
+            'message' => 'Başvuru İşlemi Başarılı',
+            'alert-type' => 'success'
+        );
 
         $talep_tipi = [
             '1' => 'Arıza - Tamir - Onarım',
@@ -72,7 +75,6 @@ class TechnicalController extends Controller
             ]
         ];
 
-
         $data = new Technical();
         $basvuru_id = IdGenerator::generate(['table' => 'cars', 'field' => 'basvuru_id', 'length' => 10, 'prefix' => 'BSV-CAR-']);
         $data->basvuru_id = $basvuru_id;
@@ -90,14 +92,15 @@ class TechnicalController extends Controller
         $data->basvuru_durumu = 0;
         $query = $data->save();
 
-        $mailAdresi = MailAdresleri::where('form_tanimi', 1)->first();
+        $sendEmails = $emails->filter(function ($email) {
+            return $email->mail_type == MailAddress::MAIL_TYPE_SEND;
+        })->pluck('email')->toArray();
+        $sendCC = $emails->filter(function ($email) {
+            return $email->mail_type == MailAddress::MAIL_TYPE_CC;
+        })->pluck('email')->toArray();
 
-        $models = MailAdresleri::all()->where('form_tanimi',2);
-        if ($models->isEmpty()) {
-            return back()->with($notification_error);
-        } else {
-            Mail::to($mailAdresi->mail)->cc($mailAdresi->cc)->send(new RequestFormBlade($mail));
-        }
+        Mail::to($sendEmails)->cc($sendCC)->send(new RequestFormBlade($mail));
+
         if (!$query) {
             return back()->with('error', 'Kullanıcı eklenirken bir hata oluştu!');
         } else {

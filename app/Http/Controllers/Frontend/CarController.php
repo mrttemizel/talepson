@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Mail\RequestFormBlade;
 use App\Models\Car;
-use App\Models\MailAdresleri;
+use App\Models\MailAddress;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,6 +49,14 @@ class CarController extends Controller
             'g-recaptcha-response' => [new GoogleReCaptchaV2ValidationRule()]
         ]);
 
+        $emails = MailAddress::query()->where('form_type', '=', MailAddress::TYPE_CAR_REQUEST)->get();
+
+        if ($emails->isEmpty()) {
+            return back()->with('error', [
+                'message' => 'Kayıtlı bir mail adresi bulunamadı!',
+                'alert-type' => 'error'
+            ]);
+        }
 
         $odeme_tipi = [
             '1' => 'Kendisi Ödeyecek',
@@ -109,15 +117,14 @@ class CarController extends Controller
         $data->basvuru_durumu = 0;
         $query = $data->save();
 
+        $sendEmails = $emails->filter(function ($email) {
+            return $email->mail_type == MailAddress::MAIL_TYPE_SEND;
+        })->pluck('email')->toArray();
+        $sendCC = $emails->filter(function ($email) {
+            return $email->mail_type == MailAddress::MAIL_TYPE_CC;
+        })->pluck('email')->toArray();
 
-        $mailAdresi = MailAdresleri::where('form_tanimi', 1)->first();
-
-        $models = MailAdresleri::all()->where('form_tanimi',1);
-        if ($models->isEmpty()) {
-            return back()->with($notification_error);
-        } else {
-            Mail::to($mailAdresi->mail)->cc($mailAdresi->cc)->send(new RequestFormBlade($mail));
-        }
+        Mail::to($sendEmails)->cc($sendCC)->send(new RequestFormBlade($mail));
 
         if (!$query) {
             return back()->with('error', 'Kullanıcı eklenirken bir hata oluştu!');
